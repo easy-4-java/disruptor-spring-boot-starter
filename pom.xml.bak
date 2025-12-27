@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.0</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<version>3.3.13</version>
+		<relativePath /> 
 	</parent>
 
 	<groupId>com.github.hiwepy</groupId>
 	<artifactId>disruptor-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Disruptor</description>
-	<version>3.3.x.20240823.RELEASE</version>
+	<version>3.3.x.20251227-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/hiwepy/${project.artifactId}</url>
 	<packaging>jar</packaging>
@@ -43,23 +42,10 @@
 		</developer>
 	</developers>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<name>Maven Snapshots Repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-		    <id>ossrh</id>
-			<name>Maven Central Staging Repository</name>
-		    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		  </repository>
-	</distributionManagement>
-
 	<build>
 		<pluginManagement>
 			<plugins>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
@@ -71,7 +57,7 @@
 						<maxmem>512M</maxmem>
 					</configuration>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
@@ -87,13 +73,13 @@
 								<rules>
 									<requireMavenVersion>
 										<message>
-	                                        <![CDATA[You are running an older version of Maven. This application requires at least Maven ${maven.version}.]]>
+	                                        You are running an older version of Maven. This application requires at least Maven ${maven.version}.
 										</message>
 										<version>[${maven.version}.0,)</version>
 									</requireMavenVersion>
 									<requireJavaVersion>
 										<message>
-	                                        <![CDATA[You are running an older version of Java. This application requires at least JDK ${java.version}.]]>
+	                                        You are running an older version of Java. This application requires at least JDK ${java.version}.
 										</message>
 										<version>[${java.version}.0,)</version>
 									</requireJavaVersion>
@@ -102,7 +88,7 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-gpg-plugin</artifactId>
@@ -117,7 +103,7 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -126,7 +112,7 @@
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
@@ -139,7 +125,7 @@
 						<goals>deploy</goals>
 					</configuration>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
@@ -156,19 +142,17 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>${maven-surefire-plugin.version}</version>
 					<configuration>
-						<!-- 跳过单元测试 -->
+						
 						<skip>true</skip>
 						<skipTests>true</skipTests>
-						<!-- forkMode 可设置值有 “never”， “once”， “always” 和 “pertest”。 pretest：
-							每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。 once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。
-							always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。 -->
-						<!--<forkMode>once</forkMode>-->
+						
+						
 						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8</argLine>
 						<additionalClasspathElements>
 							<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
@@ -181,7 +165,7 @@
 						</excludes>
 					</configuration>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -196,7 +180,7 @@
 						</archive>
 					</configuration>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
@@ -225,7 +209,7 @@
 						<serverId>ossrh</serverId>
 						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						<!-- <sslAllowAll>true</sslAllowAll> -->
+						
 						<stagingProgressPauseDurationSeconds>60</stagingProgressPauseDurationSeconds>
 						<stagingProgressTimeoutMinutes>20</stagingProgressTimeoutMinutes>
 						<detectBuildFailures>true</detectBuildFailures>
@@ -234,42 +218,42 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-			<!--环境检查插件：代码编译前的环境检查 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 			</plugin>
-			<!-- 编译插件：编译主代码至主输出目录 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 			</plugin>
-			<!-- 资源插件：复制主资源文件至主输出目录 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
-			<!-- 单元测试插件 ：执行测试用例 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 			</plugin>
-			<!-- jar包生成插件 ：创建项目jar包 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 			</plugin>
-			<!-- 源码插件:发布时自动将源码同时发布 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 			</plugin>
-			<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
 			</plugin>
-			<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
@@ -291,57 +275,57 @@
 			<id>release</id>
 			<build>
 				<plugins>
-					<!--环境检查插件：代码编译前的环境检查 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-enforcer-plugin</artifactId>
 					</plugin>
-					<!-- 编译插件：编译主代码至主输出目录 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
 					</plugin>
-					<!-- 资源插件：复制主资源文件至主输出目录 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
 					</plugin>
-					<!-- 单元测试插件 ：执行测试用例 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 					</plugin>
-					<!-- jar包生成插件 ：创建项目jar包 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jar-plugin</artifactId>
 					</plugin>
-					<!-- 源码插件:发布时自动将源码同时发布 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
 					</plugin>
-					<!-- javadoc -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 					</plugin>
-					<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-install-plugin</artifactId>
 					</plugin>
-					<!-- 签名插件：对构建的jar、javadoc、source使用gpg来签名 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
 					</plugin>
-					<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
 					</plugin>
-					<!-- 版本自动升级插件 ：重置版本号 -->
+					
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-release-plugin</artifactId>
@@ -359,7 +343,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
-		<!-- Maven Plugin versions -->
+		
 		<maven.version>3.9.9</maven.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -383,14 +367,14 @@
 		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
 		<maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
 		<maven-war-plugin.version>3.4.0</maven-war-plugin.version>
-		<!-- Dependency versions -->
+		
 		<commons-collections4.version>4.5.0-M2</commons-collections4.version>
 		<disruptor.version>4.0.0</disruptor.version>
 	</properties>
 
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -401,14 +385,14 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Core starter, including auto-configuration support, logging and YAML -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -419,25 +403,25 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- Spring Boot Test 依赖 -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- Compile dependencies -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 
-        <!-- Disruptor它是一个开源的并发框架,并获得2011 Duke’s 程序框架创新奖,能够在无锁的情况下实现网络的Queue并发操作。 -->
+        
 		<dependency>
 		    <groupId>com.lmax</groupId>
 		    <artifactId>disruptor</artifactId>
@@ -448,7 +432,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
-		<!-- The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.  -->
+		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
@@ -457,4 +441,4 @@
 
 	</dependencies>
 
-</project>
+<distributionManagement><repository><id>2624322-release-6F6h6R</id><name>Maven Release Repository</name><url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-release-6f6h6r</url><releases><enabled>true</enabled></releases><snapshots><enabled>false</enabled></snapshots></repository><snapshotRepository><id>2624322-snapshot-3EoOv3</id><name>Maven Snapshot Repository</name><url>https://packages.aliyun.com/6927b116e6c3e0425dbdf60d/maven/2624322-snapshot-3eoov3</url><releases><enabled>false</enabled></releases><snapshots><enabled>true</enabled></snapshots><uniqueVersion>true</uniqueVersion></snapshotRepository></distributionManagement></project>
