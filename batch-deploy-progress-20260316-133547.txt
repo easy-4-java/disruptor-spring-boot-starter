@@ -1,0 +1,10 @@
+disruptor-spring-boot-starter:2.3.x:SUCCESS
+disruptor-spring-boot-starter:2.7.x:SUCCESS
+disruptor-spring-boot-starter:3.0.x:FAIL
+disruptor-spring-boot-starter:3.1.x:FAIL
+disruptor-spring-boot-starter:3.2.x:FAIL
+disruptor-spring-boot-starter:3.3.x:FAIL
+disruptor-spring-boot-starter:3.4.x:FAIL
+disruptor-spring-boot-starter:3.5.x:FAIL
+disruptor-spring-boot-starter:4.0.x:FAIL
+disruptor-spring-boot-starter:master:SUCCESS
