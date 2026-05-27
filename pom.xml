@@ -12,7 +12,7 @@
 	<groupId>io.github.hiwepy</groupId>
 	<artifactId>disruptor-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Disruptor</description>
-	<version>3.2.x.20251227-SNAPSHOT</version>
+	<version>3.2.x.20260527-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/hiwepy/${project.artifactId}</url>
 	<packaging>jar</packaging>
@@ -343,6 +343,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 		
 		<maven.version>3.9.9</maven.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
