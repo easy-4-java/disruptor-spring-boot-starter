@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>4.0.1</version>
+		<version>4.1.0-M4</version>
 		<relativePath /> 
 	</parent>
 
 	<groupId>io.github.hiwepy</groupId>
 	<artifactId>disruptor-spring-boot-starter</artifactId>
 	<description>Spring Boot Starter For Disruptor</description>
-	<version>4.0.x.20260527-SNAPSHOT</version>
+	<version>4.1.x.20260527-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/hiwepy/${project.artifactId}</url>
 	<packaging>jar</packaging>
