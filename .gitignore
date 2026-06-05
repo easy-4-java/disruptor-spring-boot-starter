@@ -5,6 +5,9 @@ bin/
 !**/src/test/**/target/
 .flattened-pom.xml
 .fastRequest
+Cargo.lock
+*.swp
+*.swo
 
 ### STS ###
 .apt_generated
@@ -29,7 +32,6 @@ rebel.xml
 /nbdist/
 /.nb-gradle/
 build/
-bin/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -40,7 +42,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-.flattened-pom.xml
 **/dependency-reduced-pom.xml
 
 ### Python
@@ -65,24 +66,24 @@ logs/
 
 ## Frontend (all frontend/ directories across examples and extensions)
 # Dependencies
-**/frontend/node_modules/
+**/node_modules/
 # Build output
-**/frontend/dist/
-**/frontend/build/
-**/frontend/.output/
+**/dist/
+**/build/
+**/.output/
 # Vite / bundler caches
-**/frontend/.vite/
-**/frontend/.cache/
-**/frontend/.parcel-cache/
+**/.vite/
+**/.cache/
+**/.parcel-cache/
 # Type-check / tsc output
-**/frontend/*.tsbuildinfo
+**/*.tsbuildinfo
 # Env files (may contain secrets)
-**/frontend/.env.local
-**/frontend/.env.*.local
+**/.env.local
+**/.env.*.local
 # Coverage
-**/frontend/coverage/
+**/coverage/
 # Storybook
-**/frontend/storybook-static/
+**/storybook-static/
 # boba-tea-shop: generated static assets served by the supervisor-agent
 **/boba-tea-shop/supervisor-agent/**/static/
 
@@ -91,3 +92,4 @@ logs/
 
 ## harness db
 **/*.db
+
