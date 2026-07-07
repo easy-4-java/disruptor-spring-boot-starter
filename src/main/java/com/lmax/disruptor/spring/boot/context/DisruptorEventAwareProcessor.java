@@ -15,7 +15,7 @@
  */
 package com.lmax.disruptor.spring.boot.context;
 
-import com.lmax.disruptor.spring.boot.context.event.DisruptorEventPublisherAware;
+import com.lmax.disruptor.event.DisruptorEventPublisherAware;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.Aware;
 import org.springframework.beans.factory.InitializingBean;
