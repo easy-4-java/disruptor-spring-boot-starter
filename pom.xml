@@ -360,6 +360,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<commons-collections4.version>4.1</commons-collections4.version>
 		<disruptor.version>3.4.3</disruptor.version>
+		<disruptor-extension.version>1.0.x.20260630-SNAPSHOT</disruptor-extension.version>
 		<maven.version>3.0</maven.version>
        	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
@@ -428,6 +429,13 @@
 		    <groupId>com.lmax</groupId>
 		    <artifactId>disruptor</artifactId>
 		    <version>${disruptor.version}</version>
+		</dependency>
+
+		<!-- https://github.com/hiwepy/disruptor-extension -->
+		<dependency>
+		    <groupId>io.github.hiwepy</groupId>
+		    <artifactId>disruptor-extension</artifactId>
+		    <version>${disruptor-extension.version}</version>
 		</dependency>
 
 		<dependency>
