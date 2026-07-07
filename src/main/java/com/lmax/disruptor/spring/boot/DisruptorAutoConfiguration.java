@@ -9,7 +9,7 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.spring.boot.context.DisruptorEventAwareProcessor;
 import com.lmax.disruptor.spring.boot.event.DisruptorApplicationEvent;
 import com.lmax.disruptor.event.DisruptorEvent;
-import com.lmax.disruptor.event.factory.DisruptorBindEventFactory;
+import com.lmax.disruptor.event.DisruptorEventFactory;
 import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
 import com.lmax.disruptor.event.translator.DisruptorEventOneArgTranslator;
 import com.lmax.disruptor.event.translator.DisruptorEventThreeArgTranslator;
@@ -47,7 +47,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 	@Bean
 	@ConditionalOnMissingBean
 	public EventFactory<DisruptorEvent> eventFactory() {
-		return new DisruptorBindEventFactory();
+		return new DisruptorEventFactory();
 	}
 	
 	/**
