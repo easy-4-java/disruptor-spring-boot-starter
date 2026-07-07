@@ -371,6 +371,7 @@
 		
 		<commons-collections4.version>4.5.0-M2</commons-collections4.version>
 		<disruptor.version>4.0.0</disruptor.version>
+		<disruptor-extension.version>2.0.x.20260630-SNAPSHOT</disruptor-extension.version>
 	</properties>
 
 	<dependencies>
@@ -427,6 +428,13 @@
 		    <groupId>com.lmax</groupId>
 		    <artifactId>disruptor</artifactId>
 		    <version>${disruptor.version}</version>
+		</dependency>
+
+		<!-- https://github.com/hiwepy/disruptor-extension -->
+		<dependency>
+		    <groupId>io.github.hiwepy</groupId>
+		    <artifactId>disruptor-extension</artifactId>
+		    <version>${disruptor-extension.version}</version>
 		</dependency>
 
 		<dependency>
