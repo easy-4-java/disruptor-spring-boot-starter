@@ -1,7 +1,7 @@
 package com.lmax.disruptor.spring.boot;
 
 import com.lmax.disruptor.dsl.ProducerType;
-import com.lmax.disruptor.spring.boot.config.EventHandlerDefinition;
+import com.lmax.disruptor.config.EventHandlerDefinition;
 import com.lmax.disruptor.spring.boot.thread.DisruptorThreadFactory;
 import com.lmax.disruptor.spring.boot.thread.DisruptorWaitStrategy;
 import lombok.Data;

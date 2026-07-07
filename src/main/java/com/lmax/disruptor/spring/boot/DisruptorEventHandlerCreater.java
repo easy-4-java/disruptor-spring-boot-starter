@@ -1,16 +1,16 @@
 package com.lmax.disruptor.spring.boot;
 
-import com.lmax.disruptor.spring.boot.annotation.EventRule;
-import com.lmax.disruptor.spring.boot.config.EventHandlerDefinition;
-import com.lmax.disruptor.spring.boot.config.Ini;
-import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorEventDispatcher;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorHandler;
-import com.lmax.disruptor.spring.boot.event.handler.Nameable;
-import com.lmax.disruptor.spring.boot.event.handler.chain.HandlerChainManager;
-import com.lmax.disruptor.spring.boot.event.handler.chain.def.DefaultHandlerChainManager;
-import com.lmax.disruptor.spring.boot.event.handler.chain.def.PathMatchingHandlerChainResolver;
-import com.lmax.disruptor.spring.boot.util.StringUtils;
+import com.lmax.disruptor.annotation.EventRule;
+import com.lmax.disruptor.config.EventHandlerDefinition;
+import com.lmax.disruptor.config.Ini;
+import com.lmax.disruptor.event.DisruptorEvent;
+import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
+import com.lmax.disruptor.event.handler.DisruptorHandler;
+import com.lmax.disruptor.event.handler.Nameable;
+import com.lmax.disruptor.event.handler.chain.HandlerChainManager;
+import com.lmax.disruptor.event.handler.chain.def.DefaultHandlerChainManager;
+import com.lmax.disruptor.event.handler.chain.def.PathMatchingHandlerChainResolver;
+import com.lmax.disruptor.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
