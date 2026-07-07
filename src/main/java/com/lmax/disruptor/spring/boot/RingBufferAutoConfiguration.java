@@ -21,7 +21,7 @@ import com.lmax.disruptor.SequenceBarrier;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.event.DisruptorEvent;
-import com.lmax.disruptor.event.factory.DisruptorBindEventFactory;
+import com.lmax.disruptor.event.DisruptorEventFactory;
 import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
 import com.lmax.disruptor.util.WaitStrategys;
 
@@ -47,7 +47,7 @@ public class RingBufferAutoConfiguration implements ApplicationContextAware {
 	@Bean
 	@ConditionalOnMissingBean
 	public EventFactory<DisruptorEvent> eventFactory() {
-		return new DisruptorBindEventFactory();
+		return new DisruptorEventFactory();
 	}
 	
 	/**
