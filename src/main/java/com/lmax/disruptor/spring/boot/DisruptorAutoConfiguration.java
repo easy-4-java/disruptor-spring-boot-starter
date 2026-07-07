@@ -35,26 +35,27 @@ import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.lmax.disruptor.spring.boot.annotation.EventRule;
-import com.lmax.disruptor.spring.boot.config.EventHandlerDefinition;
-import com.lmax.disruptor.spring.boot.config.Ini;
+import com.lmax.disruptor.annotation.EventRule;
+import com.lmax.disruptor.config.EventHandlerDefinition;
+import com.lmax.disruptor.config.Ini;
 import com.lmax.disruptor.spring.boot.context.DisruptorEventAwareProcessor;
 import com.lmax.disruptor.spring.boot.event.DisruptorApplicationEvent;
-import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
-import com.lmax.disruptor.spring.boot.event.factory.DisruptorBindEventFactory;
-import com.lmax.disruptor.spring.boot.event.factory.DisruptorEventThreadFactory;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorEventDispatcher;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorHandler;
-import com.lmax.disruptor.spring.boot.event.handler.Nameable;
-import com.lmax.disruptor.spring.boot.event.handler.chain.HandlerChainManager;
-import com.lmax.disruptor.spring.boot.event.handler.chain.def.DefaultHandlerChainManager;
-import com.lmax.disruptor.spring.boot.event.handler.chain.def.PathMatchingHandlerChainResolver;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventOneArgTranslator;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventThreeArgTranslator;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventTwoArgTranslator;
-import com.lmax.disruptor.spring.boot.hooks.DisruptorShutdownHook;
-import com.lmax.disruptor.spring.boot.util.StringUtils;
-import com.lmax.disruptor.spring.boot.util.WaitStrategys;
+import com.lmax.disruptor.event.DisruptorEvent;
+import com.lmax.disruptor.event.factory.DisruptorBindEventFactory;
+import com.lmax.disruptor.event.factory.DisruptorEventThreadFactory;
+import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
+import com.lmax.disruptor.event.handler.DisruptorHandler;
+import com.lmax.disruptor.event.handler.Nameable;
+import com.lmax.disruptor.event.handler.chain.HandlerChainManager;
+import com.lmax.disruptor.event.handler.chain.def.DefaultHandlerChainManager;
+import com.lmax.disruptor.event.handler.chain.def.PathMatchingHandlerChainResolver;
+import com.lmax.disruptor.event.translator.DisruptorEventOneArgTranslator;
+import com.lmax.disruptor.event.translator.DisruptorEventThreeArgTranslator;
+import com.lmax.disruptor.event.translator.DisruptorEventTwoArgTranslator;
+import com.lmax.disruptor.hooks.DisruptorShutdownHook;
+import com.lmax.disruptor.util.StringUtils;
+import com.lmax.disruptor.util.WaitStrategys;
+import com.lmax.disruptor.DisruptorTemplate;
 
 @Configuration
 @ConditionalOnClass({ Disruptor.class })
@@ -311,8 +312,9 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 	}
 	
 	@Bean
-	public DisruptorTemplate disruptorTemplate() {
-		return new DisruptorTemplate();
+	public DisruptorTemplate disruptorTemplate(Disruptor<DisruptorEvent> disruptor,
+			EventTranslatorOneArg<DisruptorEvent, DisruptorEvent> oneArgEventTranslator) {
+		return new DisruptorTemplate(disruptor, oneArgEventTranslator);
 	}
 	
 	@Bean

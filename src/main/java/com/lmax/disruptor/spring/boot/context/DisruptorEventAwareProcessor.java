@@ -28,7 +28,7 @@ import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.lmax.disruptor.spring.boot.context.event.DisruptorEventPublisherAware;
+import com.lmax.disruptor.event.DisruptorEventPublisherAware;
 
 public class DisruptorEventAwareProcessor implements ApplicationContextAware ,BeanPostProcessor, InitializingBean {
 

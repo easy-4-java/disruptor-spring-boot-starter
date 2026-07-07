@@ -22,7 +22,9 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
+import com.lmax.disruptor.event.DisruptorEvent;
+import com.lmax.disruptor.event.DisruptorEventPublisher;
+import com.lmax.disruptor.event.DisruptorEventPublisherAware;
 
 public class EventPublicationInterceptor
 		implements MethodInterceptor, DisruptorEventPublisherAware, InitializingBean {
