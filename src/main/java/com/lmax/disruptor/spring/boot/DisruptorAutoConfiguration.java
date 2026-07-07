@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ThreadFactory;
 
+import com.lmax.disruptor.*;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -27,11 +29,6 @@ import org.springframework.core.OrderComparator;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import com.lmax.disruptor.EventFactory;
-import com.lmax.disruptor.EventTranslatorOneArg;
-import com.lmax.disruptor.EventTranslatorThreeArg;
-import com.lmax.disruptor.EventTranslatorTwoArg;
-import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.dsl.ProducerType;
@@ -56,14 +53,16 @@ import com.lmax.disruptor.spring.boot.hooks.DisruptorShutdownHook;
 import com.lmax.disruptor.spring.boot.util.StringUtils;
 import com.lmax.disruptor.spring.boot.util.WaitStrategys;
 
+
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 @Configuration
 @ConditionalOnClass({ Disruptor.class })
 @ConditionalOnProperty(prefix = DisruptorProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ DisruptorProperties.class })
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@Slf4j
 public class DisruptorAutoConfiguration implements ApplicationContextAware {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DisruptorAutoConfiguration.class);
 	private ApplicationContext applicationContext;
 	/**
 	 * 处理器链定义
@@ -114,7 +113,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 				EventRule annotationType = getApplicationContext().findAnnotationOnBean(entry.getKey(), EventRule.class);
 				if(annotationType == null) {
 					// 注解为空，则打印错误信息
-					LOG.error("Not Found AnnotationType {0} on Bean {1} Whith Name {2}", EventRule.class, entry.getValue().getClass(), entry.getKey());
+					log.warn("Not Found AnnotationType {0} on Bean {1} Whith Name {2}", EventRule.class, entry.getValue().getClass(), entry.getKey());
 				} else {
 					handlerChainDefinitionMap.put(annotationType.value(), entry.getKey());
 				}
@@ -282,7 +281,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 		// 启动
 		disruptor.start();
 
-		/**
+		/*
 		 * 应用退出时，要调用shutdown来清理资源，关闭网络连接，从MetaQ服务器上注销自己
 		 * 注意：我们建议应用在JBOSS、Tomcat等容器的退出钩子里调用shutdown方法
 		 */
@@ -294,7 +293,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public EventTranslatorOneArg<DisruptorEvent, DisruptorEvent> oneArgEventTranslator() {
+	public DisruptorEventOneArgTranslator oneArgEventTranslator() {
 		return new DisruptorEventOneArgTranslator();
 	}
 	
@@ -311,8 +310,8 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 	}
 	
 	@Bean
-	public DisruptorTemplate disruptorTemplate() {
-		return new DisruptorTemplate();
+	public DisruptorTemplate disruptorTemplate(Disruptor<DisruptorEvent> disruptor, DisruptorEventOneArgTranslator oneArgEventTranslator) {
+		return new DisruptorTemplate(disruptor, oneArgEventTranslator);
 	}
 	
 	@Bean

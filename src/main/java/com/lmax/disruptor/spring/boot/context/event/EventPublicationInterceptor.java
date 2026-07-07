@@ -18,6 +18,8 @@ package com.lmax.disruptor.spring.boot.context.event;
 
 import java.lang.reflect.Constructor;
 
+import com.lmax.disruptor.spring.boot.event.DisruptorEventPublisher;
+import com.lmax.disruptor.spring.boot.event.DisruptorEventPublisherAware;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.InitializingBean;

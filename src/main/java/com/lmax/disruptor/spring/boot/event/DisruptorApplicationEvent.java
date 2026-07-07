@@ -17,7 +17,6 @@ package com.lmax.disruptor.spring.boot.event;
 
 import org.springframework.context.ApplicationEvent;
 
-@SuppressWarnings("serial")
 public class DisruptorApplicationEvent extends ApplicationEvent {
 
 	/**

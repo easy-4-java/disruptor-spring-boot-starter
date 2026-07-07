@@ -20,7 +20,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.lmax.disruptor.spring.boot.context.event.DisruptorEventPublisher;
+import com.lmax.disruptor.spring.boot.event.DisruptorEventPublisher;
 import com.lmax.disruptor.spring.boot.event.DisruptorApplicationEvent;
 import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
 
