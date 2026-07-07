@@ -20,10 +20,10 @@ import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.SequenceBarrier;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
-import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
-import com.lmax.disruptor.spring.boot.event.factory.DisruptorBindEventFactory;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorEventDispatcher;
-import com.lmax.disruptor.spring.boot.util.WaitStrategys;
+import com.lmax.disruptor.event.DisruptorEvent;
+import com.lmax.disruptor.event.factory.DisruptorBindEventFactory;
+import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
+import com.lmax.disruptor.util.WaitStrategys;
 
 @Configuration
 @ConditionalOnClass({ Disruptor.class })
