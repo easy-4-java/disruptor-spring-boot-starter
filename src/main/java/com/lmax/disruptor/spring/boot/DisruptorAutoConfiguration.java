@@ -8,13 +8,13 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 import com.lmax.disruptor.spring.boot.context.DisruptorEventAwareProcessor;
 import com.lmax.disruptor.spring.boot.event.DisruptorApplicationEvent;
-import com.lmax.disruptor.spring.boot.event.DisruptorEvent;
-import com.lmax.disruptor.spring.boot.event.factory.DisruptorBindEventFactory;
-import com.lmax.disruptor.spring.boot.event.handler.DisruptorEventDispatcher;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventOneArgTranslator;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventThreeArgTranslator;
-import com.lmax.disruptor.spring.boot.event.translator.DisruptorEventTwoArgTranslator;
-import com.lmax.disruptor.spring.boot.hooks.DisruptorShutdownHook;
+import com.lmax.disruptor.event.DisruptorEvent;
+import com.lmax.disruptor.event.factory.DisruptorBindEventFactory;
+import com.lmax.disruptor.event.handler.DisruptorEventDispatcher;
+import com.lmax.disruptor.event.translator.DisruptorEventOneArgTranslator;
+import com.lmax.disruptor.event.translator.DisruptorEventThreeArgTranslator;
+import com.lmax.disruptor.event.translator.DisruptorEventTwoArgTranslator;
+import com.lmax.disruptor.hooks.DisruptorShutdownHook;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -31,6 +31,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.Collections;
 import java.util.List;
+import com.lmax.disruptor.DisruptorTemplate;
 
 @Configuration
 @ConditionalOnClass({ Disruptor.class })
