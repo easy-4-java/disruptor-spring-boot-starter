@@ -15,9 +15,10 @@
  */
 package com.lmax.disruptor.spring.boot.event;
 
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-@SuppressWarnings("serial")
+@Getter
 public class DisruptorApplicationEvent extends ApplicationEvent {
 
 	/**
@@ -34,11 +35,7 @@ public class DisruptorApplicationEvent extends ApplicationEvent {
 		super(source);
 	}
 
-	public Object getBind() {
-		return bind;
-	}
-	
-	public void bind(Object bind) {
+    public void bind(Object bind) {
 		this.bind = bind;
 	}
 	
