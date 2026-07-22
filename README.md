@@ -24,7 +24,7 @@ Spring Boot Starter For Disruptor
 
 ``` xml
 <dependency>
-	<groupId>com.github.hiwepy</groupId>>
+	<groupId>io.github.easy4j</groupId>
 	<artifactId>disruptor-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
