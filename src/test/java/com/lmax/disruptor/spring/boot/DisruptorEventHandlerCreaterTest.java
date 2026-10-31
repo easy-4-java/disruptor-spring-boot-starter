@@ -170,16 +170,40 @@ class DisruptorEventHandlerCreaterTest {
     }
 
     @Test
-    void emptyDefinitionStringUsesDefinitionMap() {
+    void emptyDefinitionStringRoutesThroughDefinitionMap() throws Exception {
         DisruptorEventHandlerCreater creater = new DisruptorEventHandlerCreater(mock(ApplicationContext.class));
         EventHandlerDefinition definition = new EventHandlerDefinition();
         definition.setDefinitions("");
         definition.setOrder(0);
-        definition.setDefinitionMap(Map.of("/**", "handler1"));
-        Map<String, DisruptorHandler<DisruptorEvent>> handlers = Map.of(
-                "handler1", mock(DisruptorHandler.class));
+        definition.setDefinitionMap(Map.of("orders/**", "mapped"));
+        DisruptorHandler<DisruptorEvent> mapped = mock(DisruptorHandler.class);
+        DisruptorEventDispatcher dispatcher = creater.createDisruptorEventHandler(
+                definition, Map.of("mapped", mapped));
 
-        assertThat(creater.createDisruptorEventHandler(definition, handlers)).isNotNull();
+        DisruptorEvent event = new DisruptorEvent();
+        event.setNamespace("orders");
+        event.setTopic("created");
+        dispatcher.onEvent(event, 0L, true);
+        verify(mapped).doHandler(eq(event), any());
+    }
+
+    @Test
+    void explicitDefinitionStringRoutesBeforeDefinitionMap() throws Exception {
+        DisruptorEventHandlerCreater creater = new DisruptorEventHandlerCreater(mock(ApplicationContext.class));
+        EventHandlerDefinition definition = new EventHandlerDefinition();
+        definition.setDefinitions("[urls]\norders/** = explicit");
+        definition.setDefinitionMap(Map.of("orders/**", "fallback"));
+        DisruptorHandler<DisruptorEvent> explicit = mock(DisruptorHandler.class);
+        DisruptorHandler<DisruptorEvent> fallback = mock(DisruptorHandler.class);
+        DisruptorEventDispatcher dispatcher = creater.createDisruptorEventHandler(
+                definition, Map.of("explicit", explicit, "fallback", fallback));
+
+        DisruptorEvent event = new DisruptorEvent();
+        event.setNamespace("orders");
+        event.setTopic("created");
+        dispatcher.onEvent(event, 0L, true);
+        verify(explicit).doHandler(eq(event), any());
+        verifyNoInteractions(fallback);
     }
 
     @Test
