@@ -170,6 +170,19 @@ class DisruptorEventHandlerCreaterTest {
     }
 
     @Test
+    void emptyDefinitionStringUsesDefinitionMap() {
+        DisruptorEventHandlerCreater creater = new DisruptorEventHandlerCreater(mock(ApplicationContext.class));
+        EventHandlerDefinition definition = new EventHandlerDefinition();
+        definition.setDefinitions("");
+        definition.setOrder(0);
+        definition.setDefinitionMap(Map.of("/**", "handler1"));
+        Map<String, DisruptorHandler<DisruptorEvent>> handlers = Map.of(
+                "handler1", mock(DisruptorHandler.class));
+
+        assertThat(creater.createDisruptorEventHandler(definition, handlers)).isNotNull();
+    }
+
+    @Test
     void parseHandlerChainDefinitions_shouldParseUrlsSection() {
         ApplicationContext mockCtx = mock(ApplicationContext.class);
         DisruptorEventHandlerCreater creater = new DisruptorEventHandlerCreater(mockCtx);
