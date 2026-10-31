@@ -60,6 +60,7 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <proc>full</proc>
                         <maxmem>512M</maxmem>
                     </configuration>
                 </plugin>
