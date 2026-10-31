@@ -10,7 +10,6 @@ import com.lmax.disruptor.event.handler.Nameable;
 import com.lmax.disruptor.event.handler.chain.HandlerChainManager;
 import com.lmax.disruptor.event.handler.chain.def.DefaultHandlerChainManager;
 import com.lmax.disruptor.event.handler.chain.def.PathMatchingHandlerChainResolver;
-import com.lmax.disruptor.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
@@ -144,8 +143,9 @@ public class DisruptorEventHandlerCreater {
     protected DisruptorEventDispatcher createDisruptorEventHandler(EventHandlerDefinition handlerDefinition,
                                                                    Map<String, DisruptorHandler<DisruptorEvent>> eventHandlers) {
 
-        if (StringUtils.isNotEmpty(handlerDefinition.getDefinitions())) {
-            handlerChainDefinitionMap.putAll(this.parseHandlerChainDefinitions(handlerDefinition.getDefinitions()));
+        String definitions = handlerDefinition.getDefinitions();
+        if (definitions != null && !definitions.isEmpty()) {
+            handlerChainDefinitionMap.putAll(this.parseHandlerChainDefinitions(definitions));
         } else if (!CollectionUtils.isEmpty(handlerDefinition.getDefinitionMap())) {
             handlerChainDefinitionMap.putAll(handlerDefinition.getDefinitionMap());
         }
