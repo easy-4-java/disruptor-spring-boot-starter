@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -192,6 +193,39 @@ class DisruptorComponentTests {
         } finally {
             disruptor.shutdown();
         }
+    }
+
+    @Test
+    void oneToOneRouteCallsOnlyItsConfiguredHandler() throws Exception {
+        DisruptorAutoConfiguration configuration = new DisruptorAutoConfiguration();
+        AtomicInteger createdCalls = new AtomicInteger();
+        AtomicInteger cancelledCalls = new AtomicInteger();
+        Map<String, DisruptorHandler<DisruptorEvent>> handlers = new HashMap<>();
+        handlers.put("createdHandler", (event, chain) -> createdCalls.incrementAndGet());
+        handlers.put("cancelledHandler", (event, chain) -> cancelledCalls.incrementAndGet());
+
+        EventHandlerDefinition definition = new EventHandlerDefinition();
+        Map<String, String> routes = new java.util.LinkedHashMap<>();
+        routes.put("/orders/created", "createdHandler");
+        routes.put("/orders/cancelled", "cancelledHandler");
+        definition.setDefinitionMap(routes);
+        DisruptorProperties properties = new DisruptorProperties();
+        properties.setHandlerDefinitions(Collections.singletonList(definition));
+        DisruptorEventDispatcher dispatcher = configuration.disruptorEventHandlers(properties, handlers).get(0);
+
+        DisruptorEvent created = new DisruptorEvent("source");
+        created.setTopic("orders");
+        created.setTag("created");
+        dispatcher.onEvent(created, 0, true);
+        assertEquals(1, createdCalls.get());
+        assertEquals(0, cancelledCalls.get());
+
+        DisruptorEvent cancelled = new DisruptorEvent("source");
+        cancelled.setTopic("orders");
+        cancelled.setTag("cancelled");
+        dispatcher.onEvent(cancelled, 1, true);
+        assertEquals(1, createdCalls.get());
+        assertEquals(1, cancelledCalls.get());
     }
 
     static class PublisherAwareBean implements DisruptorEventPublisherAware {
