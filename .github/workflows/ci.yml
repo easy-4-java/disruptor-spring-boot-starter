@@ -11,6 +11,27 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  build-boot-2:
+    if: github.base_ref == '2.7.x' || github.ref_name == '2.7.x'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '8'
+          cache: maven
+      - uses: actions/checkout@v4
+        with:
+          repository: easy-4-java/disruptor-extension
+          ref: e9f81a75c8b4c8316dde4e4f852a092bffe59179
+          path: disruptor-extension-source
+      - name: Build matching extension snapshot
+        working-directory: disruptor-extension-source
+        run: mvn -B clean install
+      - name: Verify starter
+        run: mvn -B clean verify
+  build-other:
+    if: github.base_ref != '2.7.x' && github.ref_name != '2.7.x'
     uses: easy-4-java/.github/.github/workflows/maven-starter-ci.yml@main
     secrets: inherit
