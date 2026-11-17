@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.OrderComparator;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.EventTranslatorOneArg;
@@ -53,7 +54,6 @@ import com.lmax.disruptor.event.translator.DisruptorEventOneArgTranslator;
 import com.lmax.disruptor.event.translator.DisruptorEventThreeArgTranslator;
 import com.lmax.disruptor.event.translator.DisruptorEventTwoArgTranslator;
 import com.lmax.disruptor.hooks.DisruptorShutdownHook;
-import com.lmax.disruptor.util.StringUtils;
 import com.lmax.disruptor.util.WaitStrategys;
 import com.lmax.disruptor.DisruptorTemplate;
 
@@ -171,7 +171,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 	protected DisruptorEventDispatcher createDisruptorEventHandler(EventHandlerDefinition handlerDefinition,
 			Map<String, DisruptorHandler<DisruptorEvent>> eventHandlers) {
 
-		if (StringUtils.isNotEmpty(handlerDefinition.getDefinitions())) {
+		if (StringUtils.hasLength(handlerDefinition.getDefinitions())) {
 			handlerChainDefinitionMap.putAll(this.parseHandlerChainDefinitions(handlerDefinition.getDefinitions()));
 		} else if (!CollectionUtils.isEmpty(handlerDefinition.getDefinitionMap())) {
 			handlerChainDefinitionMap.putAll(handlerDefinition.getDefinitionMap());
