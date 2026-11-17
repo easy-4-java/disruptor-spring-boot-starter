@@ -2,6 +2,7 @@ package com.lmax.disruptor.spring.boot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,7 +24,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.OrderComparator;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -160,7 +160,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 			}
 		}
 		// 进行排序
-		Collections.sort(disruptorEventHandlers, new OrderComparator());
+		disruptorEventHandlers.sort(Comparator.comparingInt(DisruptorEventDispatcher::getOrder));
 
 		return disruptorEventHandlers;
 	}
@@ -264,7 +264,7 @@ public class DisruptorAutoConfiguration implements ApplicationContextAware {
 		if (!ObjectUtils.isEmpty(disruptorEventHandlers)) {
 			
 			// 进行排序
-			Collections.sort(disruptorEventHandlers, new OrderComparator());
+			disruptorEventHandlers.sort(Comparator.comparingInt(DisruptorEventDispatcher::getOrder));
 			
 			// 使用disruptor创建消费者组
 			EventHandlerGroup<DisruptorEvent> handlerGroup = null;
