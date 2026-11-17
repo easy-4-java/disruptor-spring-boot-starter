@@ -124,11 +124,13 @@ public class Application {
 private WaitStrategy waitStrategy;
 ```
 
+Spring Boot 2.6 版本线的一对一处理器路由配置见[责任链示例](docs/handler-chain.md)。
+
 ## 7. 配置参考
 
 ### 7.1 配置前缀
 
-`disruptor`
+`spring.disruptor`
 
 ### 7.2 配置项
 
