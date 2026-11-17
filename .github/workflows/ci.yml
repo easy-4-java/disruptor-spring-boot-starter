@@ -3,16 +3,16 @@ name: CI
 on:
   workflow_dispatch:
   push:
-    branches: [2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
+    branches: ['test/*', 2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
   pull_request:
-    branches: [2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
+    branches: ['test/*', 2.3.x, 2.7.x, 3.0.x, 3.1.x, 3.2.x, 3.3.x, 3.4.x, 3.5.x, 4.0.x, 4.1.x]
 
 permissions:
   contents: read
 
 jobs:
   build-boot-2:
-    if: github.base_ref == '2.7.x' || github.ref_name == '2.7.x'
+    if: github.base_ref == '2.7.x' || startsWith(github.base_ref, 'test/') || github.ref_name == '2.7.x' || startsWith(github.ref_name, 'test/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +32,6 @@ jobs:
       - name: Verify starter
         run: mvn -B clean verify
   build-other:
-    if: github.base_ref != '2.7.x' && github.ref_name != '2.7.x'
+    if: github.base_ref != '2.7.x' && !startsWith(github.base_ref, 'test/') && github.ref_name != '2.7.x' && !startsWith(github.ref_name, 'test/')
     uses: easy-4-java/.github/.github/workflows/maven-starter-ci.yml@main
     secrets: inherit
