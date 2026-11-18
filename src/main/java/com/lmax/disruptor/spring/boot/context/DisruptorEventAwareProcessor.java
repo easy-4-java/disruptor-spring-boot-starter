@@ -20,7 +20,6 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.Aware;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -28,7 +27,7 @@ import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-import com.lmax.disruptor.spring.boot.event.DisruptorEventPublisherAware;
+import com.lmax.disruptor.event.DisruptorEventPublisherAware;
 
 public class DisruptorEventAwareProcessor implements ApplicationContextAware ,BeanPostProcessor, InitializingBean {
 
@@ -95,12 +94,9 @@ public class DisruptorEventAwareProcessor implements ApplicationContextAware ,Be
 	}
 	
 	protected void invokeAwareInterfaces(Object bean) {
-		if (bean instanceof Aware) {
-			//扩展 DisruptorEventPublisherAware
-			if (bean instanceof DisruptorEventPublisherAware) {
-				DisruptorEventPublisherAware awareBean = (DisruptorEventPublisherAware) bean;  
-				awareBean.setDisruptorEventPublisher( this.disruptorContext );
-			}
+		if (bean instanceof DisruptorEventPublisherAware) {
+			DisruptorEventPublisherAware awareBean = (DisruptorEventPublisherAware) bean;
+			awareBean.setDisruptorEventPublisher(this.disruptorContext);
 		}
 	}
 
