@@ -178,7 +178,8 @@
                         </additionalClasspathElements>
                         <includes>
                             <include>**/*Test.java</include>
-                        <include>**/*_Test.java</include>
+                            <include>**/*_Test.java</include>
+                            <include>**/*Tests.java</include>
                         </includes>
                         <excludes>
                             <exclude>**/TestBean.java</exclude>
