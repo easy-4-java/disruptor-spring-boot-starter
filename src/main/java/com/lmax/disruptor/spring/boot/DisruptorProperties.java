@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import com.lmax.disruptor.spring.boot.config.EventHandlerDefinition;
+import com.lmax.disruptor.config.EventHandlerDefinition;
 
 @ConfigurationProperties(DisruptorProperties.PREFIX)
 public class DisruptorProperties {

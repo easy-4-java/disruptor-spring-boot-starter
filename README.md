@@ -124,11 +124,13 @@ Then inject the auto-configured bean in your code:
 private WaitStrategy waitStrategy;
 ```
 
+For one-to-one handler routing on the Spring Boot 2.6 line, see the [handler chain example](docs/handler-chain.md).
+
 ## 7. Configuration Reference
 
 ### 7.1 Config Prefix
 
-`disruptor`
+`spring.disruptor`
 
 ### 7.2 Configuration Items
 
